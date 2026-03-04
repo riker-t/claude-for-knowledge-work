@@ -1,46 +1,83 @@
 ---
-name: proactive-scan
-description: Periodic signal monitoring — scans channels for things that need attention
+name: autopilot
+description: Background execution engine — runs hourly (7am–7pm ET, weekdays) via cron.
+author: Claude Code
+version: 2.0.0
 ---
 
-# Proactive Scan
+# Autopilot
 
-Monitor your signal sources without being asked. Surface what needs attention, ignore what doesn't.
+Background execution loop. Runs hourly, 7am–7pm ET, weekdays. Gathers signals, does work, reports what needs [YOUR_NAME]'s input.
 
-## Workflow
+**Not the daily brief.** The brief is interactive — it presents and iterates with [YOUR_NAME]. Autopilot is autonomous — it gathers, executes, and reports.
 
-1. **Scan signal sources** — Check configured channels for new activity since last scan:
-   - Slack: @mentions, DMs, key threads in watched channels
-   - Follow-ups: anything you're waiting on that got resolved
-   - Meeting transcripts: process new transcript files since last scan
+## Non-negotiables
 
-2. **Filter** — Not everything is worth surfacing. For each signal, ask:
-   - Does this need action from me?
-   - Is someone waiting on me?
-   - Did a follow-up I was tracking get resolved?
-   - Is this a signal relevant to my goals/projects?
-   - If none of the above: skip it.
+1. **Never send messages without approval.** Draft only. All outbound requires [YOUR_NAME]'s explicit approval.
+2. **Read before flagging.** For every Slack thread you consider mentioning, read the full thread. Only flag threads that genuinely need [YOUR_NAME]'s attention right now.
+3. **Don't re-do work.** Check state file for items already handled this cycle.
+4. **10-minute budget.** Stop when time's up. Better to do 3 things well than 8 poorly.
+5. **Silent when nothing's actionable.** Return exactly `NO_ACTION`. Don't DM noise.
 
-3. **Summarize** — Quick digest of what survived the filter:
-   - **Needs attention** — Items requiring action, with priority level
-   - **Completed follow-ups** — Things you were waiting on that resolved
-   - **Notable signals** — No action needed, but worth knowing
+## Jobs
 
-4. **Log** — Append scan results to `agent/events/YYYY-MM-DD.md`
+### 1. Gather signals
 
-## Configuration
+Scan for what happened since the last run:
 
-<!-- CUSTOMIZE: Replace with your sources -->
-Slack channels: [your channels]
-Scan frequency: hourly (when running via cron/launchd) or on-demand
-Transcript source: [Granola / Otter / manual drop]
+- **Slack** — unreplied mentions and DMs. Read full threads, skip if [YOUR_NAME] already replied or reacted, skip if resolved without them.
+- **Calendar** — recently ended meetings (check for unprocessed transcripts), upcoming meetings (check for missing prep).
+- **Vault** — inbox items, project activity, goal context.
 
-## Running Automatically
+### 2. Do the work
 
-To run this on a schedule, set up a launchd job (macOS) or cron job that invokes Claude Code with the `/proactive-scan` skill. See the [launchd guide](https://www.notion.so/launchd-Scheduled-Scripts-on-macOS-3153d1a933618132b248d4b4bc8189c5) for setup instructions.
+Act on what you found. Use skills — don't reinvent them:
 
-## Tips
+- Unprocessed transcript → `/process-meeting`
+- Meeting without prep → `/prep-meeting`
+- Inbox item needing a Slack draft → `/writing-slack`
+- Inbox item needing research → do the research, add findings as sub-bullets
+- Waiting-on items → check Slack for resolution, update status
+- Open items → if Slack scanning reveals real-world completion (shipped, sent, resolved), add sub-bullet: "Completed: [evidence]. Safe to mark [x]."
+- Items marked `[x]` → move to `inbox-done/`
+- Inbox maintenance → `/process-inbox` (once per cycle, skip if < 4 hours since last run per state file `last_inbox_process`)
 
-- Start with a small number of channels. Add more as the filter gets tuned.
-- The filter is the skill. A scan that surfaces everything is worse than no scan.
-- Track false positives (surfaced something useless) and false negatives (missed something important) in `agent/memories/skills/proactive-scan.md`.
+**Priority:** Meeting-blocking items first, then outbound messages, then stale waiting-on items, then research.
+
+**Skip:** Personal/offline items, items already in state file, items requiring [YOUR_NAME]'s hands.
+
+### 3. Report
+
+DM [YOUR_NAME] with what you did and what needs approval. Max 5 bullets. End with:
+> _Reply to approve drafts, correct priorities, or tell me what I got wrong._
+
+[YOUR_NAME]'s replies are calibration — capture corrections in `agent/memories/skills/autopilot.md`.
+
+### 4. Update state
+
+Write what you did to `agent/scratch/autopilot-state.md` (what's done, what's pending approval, what was skipped). Reset tables if the date rolled over. Append to `agent/events/YYYY-MM-DD.md`.
+
+Before finishing, cross-reference `inbox-done/` current week file against `inbox.md` — if any completed items still appear in inbox, remove them. This catches items moved to done by earlier sessions but still present due to stale reads.
+
+### 5. Calibrate
+
+After each cycle, briefly check: is the work you're doing actually moving [YOUR_NAME] toward their goals? Cross-reference `goals/current/*.md` against what you spent time on this cycle. If you're burning minutes on low-value items while high-priority goals have obvious next actions sitting idle, adjust. Capture any pattern shifts in `agent/memories/skills/autopilot.md`.
+
+## Tools
+
+- Slack MCP — `search_messages`, `list_messages`, `get_thread_replies`, `post_message` (drafts only until approved)
+- Clockwise MCP — `fetch_events`, `search_events`
+- Obsidian CLI — `obsidian daily:read` for [YOUR_NAME]'s daily note context (never write to daily notes)
+- `agent/scratch/autopilot-state.md` — cycle state (create if missing)
+- `agent/memories/skills/autopilot.md` — learned patterns and calibration
+- `inbox.md` / `inbox-done/` — task management
+- `goals/current/*.md` — priority framework
+- `agent/memories/people/*.md` — contact context for drafting messages
+- [YOUR_NAME]'s Slack user ID: `YOUR_SLACK_USER_ID`
+
+## Guardrails
+
+- **Never send messages without explicit approval.**
+- **Never write to daily notes** (`journal/daily/`).
+- **Inbox discipline:** Add sub-bullets to enrich items. Don't reorder, merge, or reprioritize.
+- **Log everything** to `agent/events/YYYY-MM-DD.md`.
