@@ -80,7 +80,7 @@ Scan team channels for threads, questions, and conversations where proactive wor
 - Requests for analysis, research, or artifacts that the team could use
 
 **Channels to scan** (load channel IDs from `agent/memories/slack-patterns.md`):
-<!-- Your team channels, product channels, and general strategy channels -->
+<!-- Configure your team and project channels in agent/memories/ — the proactive-scan skill uses the same channel list -->
 
 **Filter:** Only pick up work where (a) the output directly helps [YOUR_NAME] or their team, and (b) you can meaningfully advance it in one session.
 
@@ -123,8 +123,8 @@ When an initiative produces something [YOUR_NAME] should see:
 
 | Skill | Relationship |
 |-------|-------------|
-| `/autopilot` | Complementary — autopilot handles [YOUR_NAME]'s task queue, independent-work does self-directed projects |
+| `/proactive-scan` | Complementary — proactive-scan handles [YOUR_NAME]'s reactive queue, independent-work does self-directed projects |
 | `/sleep` | Sleep handles all agent infrastructure, skill maintenance, and memory work |
 | `/daily-brief` | Surfaces shipped initiative outputs to [YOUR_NAME] |
-| `/data-analyst` | Called when an initiative needs data queries |
-| `/product-shaping` | Called when an initiative involves spec or product work |
+| Data tools | Use your available data/analytics tools when an initiative needs quantitative evidence |
+| Product work | Follow your product shaping or spec-writing process when an initiative involves feature design |

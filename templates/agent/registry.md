@@ -10,7 +10,10 @@ Maintained by /sleep. Add rows as you discover new important locations.
 | projects/ | Active project folders | |
 | goals/ | Current priorities and objectives | |
 | resources/ | Reference material, frameworks, ideas | |
-| agent/memories/ | Learned behaviors and patterns | |
+| agent/memories/judgment-rules.md | Calibration rules — generalizable patterns | |
+| agent/memories/knowledge-gaps.md | Known unknowns with resolution paths | |
+| agent/memories/preferences.md | Communication style and priority logic | |
+| agent/memories/self-assessment.md | Accuracy tracking and performance | |
 | agent/events/ | Daily session logs | |
 | agent/scratch/ | Working files, drafts, prep docs | |
-| agent/projects/ | Self-directed agent initiatives | |
+| agent/projects/tracker.md | Independent work pipeline | |

@@ -46,7 +46,7 @@ When an `[observed]` pattern has 3+ occurrences across 2+ sessions, it's real. G
 - `agent/events/YYYY-MM-DD.md` — today's evidence (what happened, what failed, what was accessed)
 - `agent/memories/*.md` — all memory files (the thing you're cleaning)
 - `agent/registry.md` — routing table (maps names → filepaths + load triggers)
-- `agent/scratch/autopilot-state.md` — what autopilot did today
+- `agent/scratch/proactive-scan-state.md` — what proactive-scan did today
 - `agent/projects/tracker.md` — initiative pipeline
 - Obsidian CLI (`obsidian orphans total`, `obsidian unresolved total`) — vault health, if Obsidian is running
 - Git — for the pre-flight snapshot and verifying file existence
@@ -91,7 +91,7 @@ Regenerate `agent/registry-hot.md` — the agent's quick-reference for the ~20 m
 - Event log files (`agent/events/*.md`) — ephemeral, date-specific
 - Scratch files (`agent/scratch/*`) — ephemeral working files
 - Skill definition files (`~/.claude/skills/*/SKILL.md`) — loaded by skill invocation, not by agent judgment
-- State files (`agent/scratch/autopilot-state.md`) — internal state, not useful context
+- State files (`agent/scratch/proactive-scan-state.md`) — internal state, not useful context
 - **Skill memory files** — any memory file whose registry load trigger references a single specific skill (e.g., "Load before /daily-brief"). These are loaded by the skill, not by the table.
 
 **General memory files earn table slots:** Memory files useful across multiple session types — judgment-rules, preferences, people-dynamics, writing-style, slack-patterns, inbox-format, verification-checklist.
