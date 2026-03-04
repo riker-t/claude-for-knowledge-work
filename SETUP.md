@@ -22,8 +22,9 @@ Please:
 1. Ask me about my role, my main projects (2-3), and what tools I use daily (Slack, calendar, etc.)
 2. Customize templates/CLAUDE.md with my answers and copy it to ./CLAUDE.md in my working directory
 3. Copy the templates/agent/ scaffold to ./agent/ in my working directory
-4. Copy the skills/ folder to ~/.claude/skills/
-5. Walk me through what each skill does and how to run them
+4. Create a starter workspace if I don't already have one: goals/current/ with a sample goal file, inbox.md with a few starter items, and projects/ directory
+5. Copy the skills/ folder to ~/.claude/skills/ — replace [YOUR_NAME] with my name and YOUR_SLACK_USER_ID with my Slack user ID in all skill files
+6. Walk me through what each skill does and how to run them
 ```
 
 Claude Code will ask you questions about your role and projects, then set everything up.

@@ -27,14 +27,14 @@ Your agent has two spaces with one hard boundary between them:
 
 3. **Open Claude Code** in the directory where you keep your work (your "vault" — Obsidian, a project folder, whatever)
 
-4. **Paste the setup prompt** from [SETUP.md](SETUP.md) — Claude Code will ask about your role and set everything up
+4. **Paste the setup prompt** from [SETUP.md](SETUP.md) — Claude Code will ask about your role, set up the scaffold, create starter workspace files, and personalize all skills with your name
 
 5. **Run your first daily brief:** `/daily-brief`
 
 ## What's Included
 
 ### Harness Template (`templates/CLAUDE.md`)
-The `CLAUDE.md` file is the agent's operating system. It tells Claude Code who you are, where things live, and how to behave. The template is annotated with `<!-- CUSTOMIZE -->` comments.
+The `CLAUDE.md` file is the agent's operating system. It tells Claude Code who you are, where things live, and how to behave. The template has inline comments showing what to customize. The setup process handles this automatically.
 
 ### Agent Space Scaffold (`templates/agent/`)
 Pre-built directory structure for the agent's memory:

@@ -37,7 +37,7 @@ Work that [YOUR_NAME] or a teammate would recognize as useful output. These are 
 1. **Real output only.** Every session must produce something a human would find useful — a draft, an analysis, a prototype, a recommendation. If you can't describe the artifact in one sentence, you're tinkering.
 2. **Goal-aligned.** Before starting, check [YOUR_NAME]'s current goals (`goals/current/`) and active projects. Work should trace back to one of these.
 3. **One hour budget.** The scheduler gives you 60 minutes. Pick one initiative, ship it.
-4. **Surface results.** Include a concise summary in your response for the DM. Don't bury output in a tracker.
+4. **Surface results.** Include a concise summary in your response. Don't bury output in a tracker.
 5. **Never send messages without approval.** Draft only, [YOUR_NAME] approves.
 
 ## Tracker
@@ -108,14 +108,14 @@ Pick the highest-priority active initiative (or the best signal from Phase 1 if 
 1. **Write event** — Append to `agent/events/YYYY-MM-DD.md`
 2. **Update tracker** — Mark progress, update status, move to Shipped if done.
 3. **Surface to [YOUR_NAME]** — If you produced something worth sharing:
-   - Include a concise summary in your response (this gets DM'd by the scheduler)
+   - Include a concise summary in your response
    - Format: what you worked on, what you made, and a link/path to the artifact
    - If nothing worth sharing, return exactly `NO_ACTION`
 
 ## Promotion Pathway
 
 When an initiative produces something [YOUR_NAME] should see:
-- **Immediate:** Include in the DM summary from this session
+- **Immediate:** Include in the summary from this session
 - **Next brief:** Add as an inline collapsible callout under the relevant inbox item, or append to `agent/scratch/` for `/daily-brief` to pick up
 - **Never:** Bury it only in the tracker where [YOUR_NAME] won't see it
 

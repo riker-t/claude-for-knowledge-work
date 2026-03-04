@@ -38,7 +38,7 @@ Create a plist file for each scheduled skill. Example for the daily brief:
     <array>
         <string>/bin/bash</string>
         <string>-c</string>
-        <string>cd /path/to/your/vault && claude -p "Run /daily-brief" --allowedTools "Bash(run tests:*)" "Read" "Write" "Edit" "Glob" "Grep" "WebSearch" "WebFetch" "Task" "Skill"</string>
+        <string>cd /path/to/your/vault && claude -p "Run /daily-brief" --allowedTools "Read" "Write" "Edit" "Glob" "Grep" "WebSearch" "WebFetch"</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>
@@ -87,3 +87,4 @@ crontab -e
 - **Check logs.** Automated runs write event logs to `agent/events/YYYY-MM-DD.md` — review these to catch issues.
 - **MCP availability.** Some MCP servers (Slack, Calendar) require authentication that may expire. If a scheduled run fails, check MCP auth first.
 - **Cost.** Each skill run uses Claude API tokens. The daily brief is the most expensive (~$0.50-2.00 depending on signal volume). Proactive scan is cheaper (~$0.10-0.30) since it's lighter.
+- **Checking output.** Automated runs write results to the log files above AND to `agent/events/YYYY-MM-DD.md` in your vault. Review the event logs to see what the agent did. For richer notification, pipe output to a Slack webhook or notification tool of your choice.

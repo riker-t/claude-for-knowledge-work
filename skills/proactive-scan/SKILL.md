@@ -17,7 +17,7 @@ Background execution loop. Runs hourly, 7am–7pm ET, weekdays. Gathers signals,
 2. **Read before flagging.** For every Slack thread you consider mentioning, read the full thread. Only flag threads that genuinely need [YOUR_NAME]'s attention right now.
 3. **Don't re-do work.** Check state file for items already handled this cycle.
 4. **10-minute budget.** Stop when time's up. Better to do 3 things well than 8 poorly.
-5. **Silent when nothing's actionable.** Return exactly `NO_ACTION`. Don't DM noise.
+5. **Silent when nothing's actionable.** Return exactly `NO_ACTION`. Don't report noise.
 
 ## Jobs
 
@@ -48,7 +48,7 @@ Act on what you found. Use skills — don't reinvent them:
 
 ### 3. Report
 
-DM [YOUR_NAME] with what you did and what needs approval. Max 5 bullets. End with:
+Present what you did and what needs approval. Max 5 bullets. End with:
 > _Reply to approve drafts, correct priorities, or tell me what I got wrong._
 
 [YOUR_NAME]'s replies are calibration — capture corrections in `agent/memories/skills/proactive-scan.md`.

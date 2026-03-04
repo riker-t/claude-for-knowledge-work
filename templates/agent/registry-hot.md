@@ -4,5 +4,5 @@ Regenerated nightly by /sleep based on the past 14 days of event logs.
 If what you need isn't here, fall back to registry.md.
 -->
 
-| Path | What it covers |
-|------|---------------|
+| Path | What it covers | When to fetch |
+|------|---------------|---------------|
