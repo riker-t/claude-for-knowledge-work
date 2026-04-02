@@ -1,5 +1,6 @@
 ---
 name: daily-brief
+disable-model-invocation: true
 description: "Morning routine — reads all signals, synthesizes judgment, presents priorities, does the work, captures calibration. Triggers: 'daily brief', 'morning brief', 'what matters today', 'plan my day', or /daily-brief."
 author: Claude Code
 version: 2.0.0

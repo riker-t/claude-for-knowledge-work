@@ -1,5 +1,6 @@
 ---
 name: independent-work
+disable-model-invocation: true
 description: Autonomous initiative system — runs daily at 9am ET via cron.
 author: Claude Code
 version: 2.0.0
@@ -20,7 +21,7 @@ Work that [YOUR_NAME] or a teammate would recognize as useful output. These are 
 - **Prototypes & tools** — Working demos, calculators, dashboards, internal tools
 - **Proactive team support** — Picking up work surfaced in Slack that advances team goals (research a customer question, draft a response to a partner inquiry, synthesize a thread into a decision doc)
 - **Goal advancement** — Direct work on [YOUR_NAME]'s current goals (writing projects, health tracking, career development evidence)
-- **Proactive data pulls** — Use your data tools to surface trends nobody asked for: revenue velocity, adoption numbers, partner usage patterns. Ready-made artifacts for meetings and decisions.
+- **Proactive data pulls** — Use your data tools to surface trends nobody asked for: revenue velocity, adoption numbers, usage patterns. Ready-made artifacts for meetings and decisions.
 - **Writing pipeline** — Turn [YOUR_NAME]'s daily work into article seeds for writing goals. Mine journals, meeting notes, and project work for angles, then draft rough posts.
 - **Cross-project synthesis** — Connect patterns across your different work domains. Surface structural similarities, reusable frameworks, or insights that only emerge when looking across all domains at once.
 
@@ -80,7 +81,7 @@ Scan team channels for threads, questions, and conversations where proactive wor
 - Requests for analysis, research, or artifacts that the team could use
 
 **Channels to scan** (load channel IDs from `agent/memories/slack-patterns.md`):
-<!-- Configure your team and project channels in agent/memories/ — the proactive-scan skill uses the same channel list -->
+<!-- Configure your team and project channels here -->
 
 **Filter:** Only pick up work where (a) the output directly helps [YOUR_NAME] or their team, and (b) you can meaningfully advance it in one session.
 
@@ -108,14 +109,14 @@ Pick the highest-priority active initiative (or the best signal from Phase 1 if 
 1. **Write event** — Append to `agent/events/YYYY-MM-DD.md`
 2. **Update tracker** — Mark progress, update status, move to Shipped if done.
 3. **Surface to [YOUR_NAME]** — If you produced something worth sharing:
-   - Include a concise summary in your response
+   - Include a concise summary in your response (this gets DM'd by the scheduler)
    - Format: what you worked on, what you made, and a link/path to the artifact
    - If nothing worth sharing, return exactly `NO_ACTION`
 
 ## Promotion Pathway
 
 When an initiative produces something [YOUR_NAME] should see:
-- **Immediate:** Include in the summary from this session
+- **Immediate:** Include in the DM summary from this session
 - **Next brief:** Add as an inline collapsible callout under the relevant inbox item, or append to `agent/scratch/` for `/daily-brief` to pick up
 - **Never:** Bury it only in the tracker where [YOUR_NAME] won't see it
 
@@ -123,7 +124,7 @@ When an initiative produces something [YOUR_NAME] should see:
 
 | Skill | Relationship |
 |-------|-------------|
-| `/proactive-scan` | Complementary — proactive-scan handles [YOUR_NAME]'s reactive queue, independent-work does self-directed projects |
+| `/maintain` | Complementary — maintain handles [YOUR_NAME]'s reactive queue, independent-work does self-directed projects |
 | `/sleep` | Sleep handles all agent infrastructure, skill maintenance, and memory work |
 | `/daily-brief` | Surfaces shipped initiative outputs to [YOUR_NAME] |
 | Data tools | Use your available data/analytics tools when an initiative needs quantitative evidence |

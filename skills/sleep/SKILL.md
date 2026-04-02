@@ -1,5 +1,6 @@
 ---
 name: sleep
+disable-model-invocation: true
 description: Nightly memory consolidation. Runs at midnight ET daily via cron.
 author: Claude Code
 version: 2.0.0
@@ -46,9 +47,9 @@ When an `[observed]` pattern has 3+ occurrences across 2+ sessions, it's real. G
 - `agent/events/YYYY-MM-DD.md` — today's evidence (what happened, what failed, what was accessed)
 - `agent/memories/*.md` — all memory files (the thing you're cleaning)
 - `agent/registry.md` — routing table (maps names → filepaths + load triggers)
-- `agent/scratch/proactive-scan-state.md` — what proactive-scan did today
+- `agent/scratch/autopilot-state.md` — what the maintenance loop did today
 - `agent/projects/tracker.md` — initiative pipeline
-- Obsidian CLI (`obsidian orphans total`, `obsidian unresolved total`) — vault health, if Obsidian is running
+- Your notes tool CLI (if available) — vault health checks (e.g., orphan detection, unresolved links)
 - Git — for the pre-flight snapshot and verifying file existence
 
 ## Guardrails
@@ -91,7 +92,7 @@ Regenerate `agent/registry-hot.md` — the agent's quick-reference for the ~20 m
 - Event log files (`agent/events/*.md`) — ephemeral, date-specific
 - Scratch files (`agent/scratch/*`) — ephemeral working files
 - Skill definition files (`~/.claude/skills/*/SKILL.md`) — loaded by skill invocation, not by agent judgment
-- State files (`agent/scratch/proactive-scan-state.md`) — internal state, not useful context
+- State files (`agent/scratch/autopilot-state.md`) — internal state, not useful context
 - **Skill memory files** — any memory file whose registry load trigger references a single specific skill (e.g., "Load before /daily-brief"). These are loaded by the skill, not by the table.
 
 **General memory files earn table slots:** Memory files useful across multiple session types — judgment-rules, preferences, people-dynamics, writing-style, slack-patterns, inbox-format, verification-checklist.
@@ -124,7 +125,17 @@ Review the last 3 days' event logs. For each session, check: what files were loa
 - The hot registry is a routing layer, not a knowledge dump. Each row should tell you *when to fetch*, not try to summarize the file's contents. If any description exceeds ~10 words, shorten it.
 - Registry load triggers must be specific. "Load when working on X" is good. "Load for context" is too vague — tighten it.
 
-### 7. Validate organization
+### 7. Channel watchlist maintenance
+
+Review `agent/config/channel-watchlist.md` against recent activity:
+
+**Add channels:** Scan 7-day event logs and Slack activity for channels where [YOUR_NAME] is active but that aren't on the watchlist. For each candidate, read recent channel content and assess strategically: does this channel contain project decisions, engineering progress, or status updates that would keep agent observations current? Message count alone isn't sufficient — a channel with 1 high-signal decision thread is worth more than a channel with 10 casual messages. Add channels that would prevent staleness gaps.
+
+**Remove channels:** If a watchlist channel had zero relevant extractions across 14 days of maintenance scans (check event logs), remove it. Stale channels waste scan budget.
+
+**Update routing:** If a new `agent/memories/projects/` file was created (e.g., a project observation file was split), update the "Routes to" column for affected channels.
+
+### 8. Validate organization
 
 Final pass after all changes. For each memory file:
 

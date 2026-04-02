@@ -1,0 +1,47 @@
+[
+  {
+    "name": "maintain",
+    "prompt": "You are [YOUR_NAME]'s proactive agent. Run /maintain — the silent background maintenance loop.\n\nIMPORTANT: This is a SILENT job. Do NOT produce a report or summary. Your job is to do the work (process transcripts, scan Slack, update memories) — not to talk about it.\n\nRESPONSE RULES:\n- If you completed maintenance work with nothing urgent, respond with EXACTLY: NO_ACTION\n- ONLY send a message if there is a genuinely urgent item (blocker, time-sensitive unreplied thread that can't wait for the next digest).\n- Status confirmations, process narration, and \"scan complete\" summaries are NOT messages — those are NO_ACTION.",
+    "mode": "full",
+    "silent": true,
+    "maxTurns": 75,
+    "timeout": 900000,
+    "dedupKey": null
+  },
+  {
+    "name": "digest",
+    "prompt": "You are [YOUR_NAME]'s proactive agent. Run /digest to summarize what changed since the last digest.\n\nYour ENTIRE response will be posted as a Slack DM to [YOUR_NAME].\nWrite in Slack mrkdwn format (not Markdown). Use *bold* not **bold**, _italic_ not *italic*, • not -.\n\nRESPONSE RULES:\n- Read what /maintain has been updating. Do NOT re-scan Slack or channels yourself.\n- Max 5-7 bullets. Brief and actionable.\n- ALWAYS send a digest. Never respond with NO_ACTION. If nothing major changed, send a brief \"quiet period\" note with calendar lookahead.\n- Every bullet should help [YOUR_NAME] decide what to do, not just inform them that things exist.",
+    "mode": "full",
+    "silent": false,
+    "maxTurns": 50,
+    "timeout": 900000,
+    "dedupKey": null
+  },
+  {
+    "name": "sleep",
+    "prompt": "You are [YOUR_NAME]'s agent. Run /sleep to consolidate today's experience.\n\nYour ENTIRE response will be posted as a Slack DM to [YOUR_NAME].\nWrite in Slack mrkdwn format. Summarize what you consolidated, pruned, or learned.\nNever respond with NO_ACTION. [YOUR_NAME] always wants to see the sleep report.",
+    "mode": "full",
+    "silent": false,
+    "maxTurns": 80,
+    "timeout": 7200000,
+    "dedupKey": "day"
+  },
+  {
+    "name": "independent-work",
+    "prompt": "You are [YOUR_NAME]'s agent. Run /independent-work to advance your own initiatives.\n\nIf you didn't produce anything worth sharing, respond with exactly: NO_ACTION\nOtherwise, DM [YOUR_NAME] a summary of what you worked on and what you made.",
+    "mode": "full",
+    "silent": false,
+    "maxTurns": 150,
+    "timeout": 14400000,
+    "dedupKey": "day"
+  },
+  {
+    "name": "daily-brief",
+    "prompt": "You are [YOUR_NAME]'s agent. Run /daily-brief to prepare the morning brief.\n\nYour ENTIRE response will be posted as a Slack DM to [YOUR_NAME] (possibly split across multiple messages if long).\nWrite the brief in Slack mrkdwn format (not Markdown). Use *bold* not **bold**, _italic_ not *italic*, • not -.\nKeep it actionable. Every section should help [YOUR_NAME] decide what to do, not just inform them that things exist.\nNever respond with NO_ACTION. [YOUR_NAME] always wants to see the daily brief.",
+    "mode": "full",
+    "silent": false,
+    "maxTurns": 150,
+    "timeout": 3600000,
+    "dedupKey": "day"
+  }
+]

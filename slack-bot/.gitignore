@@ -1,0 +1,11 @@
+node_modules/
+.env
+sessions.json
+scheduler-state.json
+bot-heartbeat.json
+bot.pid
+bot.log
+bot.err
+identity.md
+channel-allowlist.json
+jobs.json
