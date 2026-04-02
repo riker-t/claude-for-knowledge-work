@@ -50,11 +50,11 @@ Pre-built directory structure for the agent's memory:
 
 | Skill | What it does | Schedule |
 |-------|-------------|----------|
-| **daily-brief** | Morning routine — synthesizes signals from Slack, calendar, and vault into prioritized action items with work product attached | Daily, morning |
-| **maintain** | Silent background loop — processes transcripts, scans Slack, checks calendar/Linear, updates agent memories | Every 30 min during work hours |
-| **digest** | Periodic summary — reads what maintain wrote and sends a brief Slack DM with what changed | Every 2 hours during work hours |
-| **sleep** | Nightly consolidation — prunes stale memories, consolidates duplicates, regenerates the hot registry, calibrates agent infrastructure | Daily, overnight |
-| **independent-work** | Self-directed projects — the agent proposes and ships work aligned to your goals | Daily |
+| **daily-brief** | Morning routine — synthesizes signals from Slack, calendar, and vault into prioritized action items with work product attached | Weekdays, 7am–noon ET |
+| **maintain** | Silent background loop — processes transcripts, scans Slack, checks calendar/Linear/CC logs, updates agent memories, executes follow-up work | Every 30 min, weekdays 7am–9pm ET |
+| **digest** | Periodic summary — reads what maintain wrote and sends a brief Slack DM with what changed | Odd hours (9am–9pm ET), weekdays |
+| **sleep** | Nightly consolidation — prunes stale memories, graduates patterns, regenerates the hot registry, audits context budgets, maintains channel watchlist, validates organization | Daily, overnight (catch-up window until noon) |
+| **independent-work** | Self-directed projects — the agent proposes and ships work aligned to your goals | Weekdays, morning (catch-up window until noon) |
 
 Skills reference each other by describing work generically — you can customize, replace, or skip any skill without breaking the others.
 
@@ -68,11 +68,11 @@ Guide for running skills automatically — either via macOS launchd/cron (simple
 
 The skills form a cycle:
 
-1. **maintain** runs every 30 minutes. It silently scans Slack, processes transcripts, checks calendar and Linear, and writes observations to `agent/memories/`. It does the work but never reports directly.
+1. **maintain** runs every 30 minutes on weekdays. It silently processes transcripts, scans Slack, checks calendar/Linear/CC session logs, writes observations to `agent/memories/`, and executes follow-up work (meeting prep, Slack drafts, research). It does the work but never reports directly.
 
 2. **digest** runs every 2 hours. It reads what maintain wrote to memory files since the last digest and sends you a brief Slack DM — 5-7 bullets of what changed and what needs your attention.
 
-3. **sleep** runs overnight. It reads the day's event logs, prunes stale memories, consolidates duplicates, graduates recurring patterns to durable rules, and regenerates the hot registry. This is what makes the agent leaner and smarter over time.
+3. **sleep** runs overnight (with a catch-up window until noon). It reads the day's event logs, prunes stale memories, graduates recurring patterns to durable rules, regenerates the hot registry, audits context budgets, maintains the channel watchlist, and validates memory organization. This is what makes the agent leaner and smarter over time.
 
 4. **independent-work** runs once daily. It scans your goals, inbox, and Slack for opportunities, then picks a self-directed initiative and ships a concrete artifact (research, draft, prototype, analysis).
 
@@ -100,8 +100,8 @@ The `slack-bot/` directory contains a Node.js framework that turns your agent in
 **Two permission modes:**
 | Mode | Trigger | Capabilities |
 |------|---------|-------------|
-| **DM (full access)** | Direct message from owner | All tools — read, write, edit vault files, run skills, web search |
-| **Channel (scoped)** | @mention in an allowed channel | Read-only vault access, no file edits, scoped to the conversation |
+| **DM (full access)** | Direct message from owner | Read, write, edit vault files, run skills, web search. Slack posting is handled by the bot framework, not the agent directly. |
+| **Channel (scoped)** | @mention in an allowed channel | Read vault files, write to scratch/tmp, run commands. No `Edit` tool (prevents in-place file modifications). Scoped to the conversation. |
 
 **Key features:**
 - **Custom scheduler** — 30-second polling with dedup, replaces node-cron (which had double-fire bugs). Jobs defined in `jobs.json`.
